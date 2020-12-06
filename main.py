@@ -1,10 +1,8 @@
 import cv2
 import numpy as np
-from scipy import stats
-import math
 import glob
 import argparse
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 
 def createHist(file, histograms, images):
     img = cv2.imread(file)
@@ -24,8 +22,6 @@ def run():
     arguments = parser.parse_args()
     output = arguments.o
 
-    print(flag_value)
-
     OPENCV_METHODS = (
         ("Correlation", cv2.HISTCMP_CORREL),
         ("Chi-Squared", cv2.HISTCMP_CHISQR),
@@ -39,6 +35,10 @@ def run():
     #Populatings histograms and file dictionary
     for file in glob.glob("*.png"):
         createHist(file, histograms, images)
+    
+    if(len(images) == 0):
+        print("No images on folder. Exiting!")
+        quit()
     
     comparsions = len(images)
 
